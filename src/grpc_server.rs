@@ -9,11 +9,12 @@ use services::{payment_service_server::{PaymentService, PaymentServiceServer}, P
 
 #[derive(Default)]
 pub struct MyPaymentService;
+#[tonic::async_trait]
 impl PaymentService for MyPaymentService {
     async fn process_payment(
         &self,
         request: Request<PaymentRequest>,
-    ) -> Result<Response<ProcessPaymentStream>, Status> {
+    ) -> Result<Response<PaymentResponse>, Status> {
         println!("Received payment request: {:?}", request);
 
         // Process the request and return a response
